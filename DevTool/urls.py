@@ -14,11 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-
 from django.contrib import admin
 
 import views.index
 
+# Error Page Redirect Handler
 handler400 = 'DevTool.views.error.error_400'
 handler404 = 'DevTool.views.error.error_404'
 handler500 = 'DevTool.views.error.error_500'
