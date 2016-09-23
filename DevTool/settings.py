@@ -24,8 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0scsu)n@dhvs=5wd0l+)cqp%zkru#=!c+a*o(w^xbzv@$5kc+-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -78,12 +77,19 @@ WSGI_APPLICATION = 'DevTool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+# Define the database manager to setup the various projects
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'dev_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'dev.db'),
     }
 }
+DATABASE_ROUTERS = ['photo.DatabaseAppsRouter.DatabaseAppsRouter']
+DATABASE_APPS_MAPPING = {'photo': 'dev_db'}
 
 
 # Internationalization
