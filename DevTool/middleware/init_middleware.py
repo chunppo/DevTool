@@ -1,4 +1,4 @@
-class CustomMiddleware(object):
+class InitServerMiddleware(object):
     def __init__(self):
         #...
         print 'Custom __init__'

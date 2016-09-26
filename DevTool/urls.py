@@ -26,4 +26,5 @@ handler500 = 'DevTool.views.error.error_500'
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index.index, name='index'),
+    url(r'^server/', include('server.urls')),
 ]

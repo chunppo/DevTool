@@ -38,11 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'photo',
+    'server',
 )
 
 MIDDLEWARE_CLASSES = (
-    'DevTool.middleware.custom_middleware.CustomMiddleware',   #Custom Middleware
+    'DevTool.middleware.init_middleware.InitServerMiddleware',   #Server Init Middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,7 +58,10 @@ ROOT_URLCONF = 'DevTool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(ROOT_PATH, 'templates/').replace('\\', '/')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'server', 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,6 +81,8 @@ WSGI_APPLICATION = 'DevTool.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 # Define the database manager to setup the various projects
+DATABASE_ROUTERS = ['DevTool.router.database_apps_router.DatabaseAppsRouter']
+DATABASE_APPS_MAPPING = {'server': 'dev_db'}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -88,8 +93,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'dev.db'),
     }
 }
-DATABASE_ROUTERS = ['photo.DatabaseAppsRouter.DatabaseAppsRouter']
-DATABASE_APPS_MAPPING = {'photo': 'dev_db'}
 
 
 # Internationalization
@@ -97,8 +100,7 @@ DATABASE_APPS_MAPPING = {'photo': 'dev_db'}
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-# TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -112,5 +114,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    (os.path.join(ROOT_PATH, 'static/').replace('\\', '/'),)
+    os.path.join(BASE_DIR, 'static'),
 )
