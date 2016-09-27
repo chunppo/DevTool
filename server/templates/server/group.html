@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">
+        리스트
+        <div class="btn-group pull-right" role="group right" aria-label="...">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#serverGroupAddModal" data-whatever="@mdo">등록</button>
+        </div>
+    </h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>서버그룹ID</th>
+                <th>그룹명</th>
+                <th>설명</th>
+                <th>수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for group in group_list %}
+            <tr>
+                <td>{{ group.sever_group_id }}</td>
+                <td>{{ group.group_name }}</td>
+                <td>{{ group.description }}</td>
+                <td>{{ group.changed }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="serverGroupAddModal" tabindex="-1" role="dialog" aria-labelledby="serverGroupAddModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">등록</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="server_group_name" class="control-label">그룹명:</label>
+                        <input type="text" class="form-control" id="server_group_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="server_group_description" class="control-label">설명:</label>
+                        <textarea  type="text" class="form-control" id="server_group_description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $('#serverGroupAddModal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        modal.find('.modal-body input').val('')
+        modal.find('.modal-body textarea').val('')
+    })
+
+    $('#serverGroupAddModal .btn-primary').on('click', function (event) {
+        var server_group_name = $('#serverGroupAddModal form #server_group_name').val();
+        var server_group_description = $('#serverGroupAddModal form #server_group_description').val();
+
+        var url = '/server/servergroup/add/';
+        $.ajax({
+		    type : "GET",
+			cache : false,
+			async : false,
+			url : url,
+			success : function(result, status, xhr) {
+			    var serverInfo = $.parseJSON(result);
+                alert(serverInfo.group_list);
+			},
+			error : function(e) {
+				alert("error");
+			}
+		});
+
+        var serverInfo = $.parseJSON(result);
+        alert(serverInfo.group_list);
+    })
+
+</script>
+{% endblock %}
