@@ -78,16 +78,13 @@
 			url : url,
 			success : function(result, status, xhr) {
 			    var serverInfo = $.parseJSON(result);
-                alert(serverInfo.group_list);
+			    alert(serverInfo[0].model);
 			},
 			error : function(e) {
 				alert("error");
 			}
 		});
 
-        var serverInfo = $.parseJSON(result);
-        alert(serverInfo.group_list);
     })
-
 </script>
 {% endblock %}

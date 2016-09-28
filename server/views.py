@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from DevTool.serializer import ResultSerializer
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import ServerGroup
 from .models import ServiceServer
+
+import json
 
 """
 서버그룹 리스트 뷰
@@ -15,9 +17,10 @@ def server_group(request):
     return render(request, 'server/group.html', context);
 
 def server_group_add(request):
-    group_list = ServerGroup.objects.all().values()
-    context = {'group_list': group_list}
-    return JsonResponse(context);
+    query_set = ServerGroup.objects.all()
+    result = ResultSerializer().serialize(query_set)
+    context = {"data": json.loads(result)}
+    return JsonResponse(context)
 
 def list(request):
     context = {
@@ -30,12 +33,7 @@ def list(request):
         ),
     ).select_related('description').values()
 
-    print p
-
     a = ServiceServer.objects.all().prefetch_related('sever_group_id')
-
-    for zz in a:
-        print zz.sever_group_id.group_name
     # for a in p:
     #    print a
     # print p.group_name
