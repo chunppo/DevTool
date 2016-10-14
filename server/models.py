@@ -10,6 +10,9 @@ class ServerGroup(models.Model):
     changed = models.DateTimeField(auto_now_add=True)
     changer_account = models.CharField(max_length=20, blank=True, null=False)
 
+    def __str__(self):
+        return '%s_%s' % (self.sever_group_id, self.group_name)
+
     class Meta:
         app_label = 'server'
         db_table = 'service_server_group'
@@ -25,6 +28,9 @@ class ServiceServer(models.Model):
     private_ip = models.GenericIPAddressField(protocol='IPv4', null=False)
     changed = models.DateTimeField(auto_now_add=True)
     changer_account = models.CharField(max_length=20, blank=True, null=False)
+
+    def __str__(self):
+        return '%s_%s' % (self.server_id, self.host_name)
 
     class Meta:
         app_label = 'server'

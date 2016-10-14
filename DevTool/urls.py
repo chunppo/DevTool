@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index.index, name='index'),
     url(r'^server/', include('server.urls')),
+    url(r'^qrcode_generator/', include('qrcode_generator.urls')),
 ]

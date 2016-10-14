@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'server',
+    'qrcode_generator',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,7 +61,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'server', 'templates')
+            os.path.join(BASE_DIR, 'server', 'templates'),
+            os.path.join(BASE_DIR, 'qrcode_generator', 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
