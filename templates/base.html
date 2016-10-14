@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static from staticfiles %}
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="{% static 'common/css/bootstrap.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'common/css/dashboard.css' %}" />
+    <script src="{% static 'common/js/jquery_191_min.js' %}"></script>
+    <script src="{% static 'common/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
+    <script src="{% static 'js/modal_alert.js' %}"></script>
+    <title></title>
+</head>
+<body>
+    {% include 'top.html' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'left.html' %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
